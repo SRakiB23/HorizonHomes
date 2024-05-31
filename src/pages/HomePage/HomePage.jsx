@@ -1,7 +1,11 @@
+import Advertisement from "../../components/Advertisement/Advertisement";
+import Banner from "../../components/Banner/Banner";
+
 function HomePage() {
   return (
     <div>
-      <h2>Home</h2>
+      <Banner></Banner>
+      <Advertisement></Advertisement>
     </div>
   );
 }

@@ -3,8 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Root from "./routes/Root";
-
-// import AuthProvider from "./providers/AuthProvider";
 import { ToastContainer } from "react-toastify";
 import HomePage from "./pages/HomePage/HomePage";
 import AuthProvider from "./providers/AuthProvider";
