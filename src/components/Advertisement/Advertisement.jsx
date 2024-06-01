@@ -8,7 +8,7 @@ function Advertisement() {
   const [properties] = useProperties();
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto">
       <div className="py-6 text-center">
         <h2 className="text-sm text-[#ED2027] font-semibold">
           FEATURED PROPERTIES

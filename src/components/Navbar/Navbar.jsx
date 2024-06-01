@@ -27,13 +27,13 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/assignments">All Properties</NavLink>
+        <NavLink to="/allProperties">All Properties</NavLink>
       </li>
       <li>
         <NavLink to="/createassignment">Dashboard</NavLink>
       </li>
       <li>
-        <NavLink to="/pendingassignment">Login</NavLink>
+        <NavLink to="/login">Login</NavLink>
       </li>
     </>
   );
@@ -44,7 +44,7 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/assignments">All Properties</NavLink>
+        <NavLink to="/allProperties">All Properties</NavLink>
       </li>
       <li>
         <NavLink to="/login">Login</NavLink>

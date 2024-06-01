@@ -7,6 +7,8 @@ import { ToastContainer } from "react-toastify";
 import HomePage from "./pages/HomePage/HomePage";
 import AuthProvider from "./providers/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AllProperties from "./pages/AllProperties/AllProperties";
+import Login from "./pages/Login/Login";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage></HomePage>,
+      },
+      {
+        path: "allProperties",
+        element: <AllProperties></AllProperties>,
+      },
+      {
+        path: "login",
+        element: <Login></Login>,
       },
     ],
   },

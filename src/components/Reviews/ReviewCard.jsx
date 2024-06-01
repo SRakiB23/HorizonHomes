@@ -4,7 +4,7 @@ function ReviewCard({ review }) {
 
   return (
     <div className="">
-      <div className="p-4 border rounded-lg bg-white shadow-md text-center h-80">
+      <div className="p-4 border rounded-lg bg-white shadow-md text-center md:h-96 sm: h-[600px]">
         <img
           src={reviewer_image}
           alt="image"

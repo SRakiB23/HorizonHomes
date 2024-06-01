@@ -8,10 +8,7 @@ function AdvertisementCard({ property }) {
     <div className="max-w-7xl mx-auto">
       <div className="card card-compact w-96 bg-base-100 shadow-xl">
         <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-            alt="Shoes"
-          />
+          <img className="h-64 w-full" src={image} alt="property" />
         </figure>
         <div className="card-body">
           <h2 className="text-2xl font-bold">{property_name}</h2>
