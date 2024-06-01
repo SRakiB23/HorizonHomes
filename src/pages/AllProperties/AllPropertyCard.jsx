@@ -1,10 +1,12 @@
 import React from "react";
 import { FaLocationArrow, FaLocationDot, FaLocationPin } from "react-icons/fa6";
 import { MdVerified } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 function AllPropertyCard({ property }) {
   const {
     property_name,
+    _id,
     image,
     price_range,
     location,
@@ -36,7 +38,9 @@ function AllPropertyCard({ property }) {
               <img src={agent_image} />
             </div>
             <p className="text-lg font-bold">{agent_name}</p>
-            <button className="btn bg-[#Ed2027] text-white">Details</button>
+            <Link to={`/propertyDetails/${_id}`}>
+              <button className="btn bg-[#Ed2027] text-white">Details</button>
+            </Link>
           </div>
         </div>
       </div>
