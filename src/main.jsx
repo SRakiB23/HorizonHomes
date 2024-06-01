@@ -10,6 +10,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AllProperties from "./pages/AllProperties/AllProperties";
 import Login from "./pages/Login/Login";
 import PropertyDetails from "./PropertyDetails/PropertyDetails";
+import Register from "./pages/Registration/Registration";
+import Dashboard from "./Dashboard/Dashboard";
+import Profile from "./pages/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +34,21 @@ const router = createBrowserRouter([
       {
         path: "propertyDetails/:id",
         element: <PropertyDetails></PropertyDetails>,
+      },
+      {
+        path: "register",
+        element: <Register></Register>,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        //normal user path
+        path: "profile",
+        element: <Profile></Profile>,
       },
     ],
   },

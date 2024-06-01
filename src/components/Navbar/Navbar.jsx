@@ -30,7 +30,7 @@ const Navbar = () => {
         <NavLink to="/allProperties">All Properties</NavLink>
       </li>
       <li>
-        <NavLink to="/createassignment">Dashboard</NavLink>
+        <NavLink to="/dashboard">Dashboard</NavLink>
       </li>
       <li>
         <NavLink to="/login">Login</NavLink>
@@ -44,13 +44,7 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/allProperties">All Properties</NavLink>
-      </li>
-      <li>
         <NavLink to="/login">Login</NavLink>
-      </li>
-      <li>
-        <NavLink to="/register">Registration</NavLink>
       </li>
     </>
   );
