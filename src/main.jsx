@@ -13,6 +13,7 @@ import PropertyDetails from "./PropertyDetails/PropertyDetails";
 import Register from "./pages/Registration/Registration";
 import Dashboard from "./Dashboard/Dashboard";
 import Profile from "./pages/Profile/Profile";
+import WishList from "./pages/WishList/WishList";
 
 const router = createBrowserRouter([
   {
@@ -39,19 +40,31 @@ const router = createBrowserRouter([
         path: "register",
         element: <Register></Register>,
       },
-    ],
-  },
-  {
-    path: "dashboard",
-    element: <Dashboard></Dashboard>,
-    children: [
       {
-        //normal user path
         path: "profile",
         element: <Profile></Profile>,
       },
+      {
+        path: "dashboard",
+        element: <Dashboard></Dashboard>,
+      },
+      {
+        path: "wishlist",
+        element: <WishList></WishList>,
+      },
     ],
   },
+  // {
+  //   path: "dashboard",
+  //   element: <Dashboard></Dashboard>,
+  //   children: [
+  //     // normal user routes
+  //     {
+  //       path: "profile",
+  //       element: <Profile></Profile>,
+  //     },
+  //   ],
+  // },
 ]);
 
 const queryClient = new QueryClient();
