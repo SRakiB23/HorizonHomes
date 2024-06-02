@@ -14,6 +14,7 @@ import Register from "./pages/Registration/Registration";
 import Dashboard from "./Dashboard/Dashboard";
 import Profile from "./pages/Profile/Profile";
 import WishList from "./pages/WishList/WishList";
+import MakeOffer from "./pages/MakeOffer/MakeOffer";
 
 const router = createBrowserRouter([
   {
@@ -52,19 +53,12 @@ const router = createBrowserRouter([
         path: "wishlist",
         element: <WishList></WishList>,
       },
+      {
+        path: "makeoffer/:id",
+        element: <MakeOffer></MakeOffer>,
+      },
     ],
   },
-  // {
-  //   path: "dashboard",
-  //   element: <Dashboard></Dashboard>,
-  //   children: [
-  //     // normal user routes
-  //     {
-  //       path: "profile",
-  //       element: <Profile></Profile>,
-  //     },
-  //   ],
-  // },
 ]);
 
 const queryClient = new QueryClient();

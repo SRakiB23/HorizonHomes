@@ -34,13 +34,19 @@ function AllPropertyCard({ item }) {
           <p className="text-xl py-2 font-bold">{price_range}</p>
           <p className="divider"></p>
           <div className="avatar flex items-center gap-2">
-            <div className="w-12 rounded-full flex">
+            <h2 className="text-lg font-bold text-slate-400">Agent:</h2>
+            <div className="w-14 rounded-full flex">
               <img src={agent_image} />
             </div>
             <p className="text-lg font-bold">{agent_name}</p>
-            <Link to={`/propertyDetails/${_id}`}>
-              <button className="btn bg-[#Ed2027] text-white">Details</button>
+          </div>
+          <div className="flex justify-evenly pt-4">
+            <Link to={`/makeoffer/${_id}`}>
+              <button className="btn text-white bg-[#Ed2027] w-36">
+                Make an Offer
+              </button>
             </Link>
+            <button className="btn text-white bg-[#Ed2027] w-36">Remove</button>
           </div>
         </div>
       </div>
