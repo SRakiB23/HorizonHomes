@@ -1,64 +1,84 @@
 import { useContext, useEffect, useState } from "react";
 import AOS from "aos";
+import { useForm } from "react-hook-form";
 import "aos/dist/aos.css";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../providers/AuthProvider";
+import AuthProvider, { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser } = useContext(AuthContext); // Assuming AuthContext handles Firebase interaction
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [serverError, setServerError] = useState(null); // State for server errors
+  const useAxios = useAxiosPublic(); // Assuming useAxiosPublic is the hook instance
 
   useEffect(() => {
     AOS.init();
   }, []);
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // console.log(e.currentTarget);
+
     const form = new FormData(e.currentTarget);
     const displayName = form.get("displayName");
     const email = form.get("email");
     const photoURL = form.get("photoURL");
     const password = form.get("password");
-    // console.log(displayName, email, photoURL, password);
 
-    //PASSWORD validation
-
+    // Password validation
     const validatePassword = (password) => {
       const upperCase = /[A-Z]/;
       const lowerCase = /[a-z]/;
-      const length = /^.{6,}$/;
-
-      // Check if the password meets all requirements
+      const length = /^.{6,}$/; // Check if the password meets all requirements
       const hasUppercase = upperCase.test(password);
       const hasLowercase = lowerCase.test(password);
       const hasMinLength = length.test(password);
-
-      // Return true if all requirements are met, otherwise return false
       return hasUppercase && hasLowercase && hasMinLength;
     };
 
-    // Validate the password
     if (!validatePassword(password)) {
-      // Password does not meet requirements, show error message
       toast.error(
         "Password must contain at least one uppercase letter, one lowercase letter, and be at least 6 characters long."
       );
-      return; // Prevent further execution
+      return;
     }
 
-    //create user
-    createUser(email, password, displayName, photoURL)
-      .then(() => {
-        toast.success("Registration Successfull");
-        navigate(location?.state ? location.state : "/");
-      })
-      .catch(() => {
-        toast.error("Please Try Again");
-      });
+    try {
+      // **1. Create User in Firebase Authentication:**
+      const firebaseUser = await createUser(email, password); // Assuming createUser handles Firebase
+
+      // **2. Prepare User Data for MongoDB:**
+      const userData = {
+        displayName,
+        email,
+        photoURL,
+        // Include any additional user data you want to store in MongoDB
+      };
+
+      // **3. Save User Data in MongoDB:**
+      const mongoResponse = await useAxios.post("/users", userData);
+      console.log("MongoDB response:", mongoResponse.data);
+
+      // **4. Optional: Create User Context (if using Context API):**
+      // If you're using Context API for user state management, create a user object and dispatch it to the context provider.
+      // This example assumes you have a `setUser` function in your AuthContext.
+
+      // const user = {
+      //   displayName,
+      //   email,
+      //   // Include any additional user data you want to manage in context
+      // };
+      // setUser(user);
+
+      toast.success("Registration Successful");
+      navigate(location?.state ? location.state : "/");
+    } catch (error) {
+      console.error("Registration error:", error);
+      setServerError("Registration failed, please try again.");
+    }
   };
 
   return (

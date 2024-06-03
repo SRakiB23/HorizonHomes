@@ -45,34 +45,33 @@ const PropertyDetails = () => {
 
   const handleSubmitReview = async (e) => {
     e.preventDefault();
+    // Get the current date and time in ISO format
+    const reviewTime = new Date().toISOString();
     const formData = new FormData(e.target);
     const reviewData = {
       property_name: formData.get("property_name"),
+      agent_name: propertyDetails.agent_name,
       reviewer_name: formData.get("reviewer_name"),
       review_description: formData.get("review_description"),
       reviewer_image: user?.photoURL,
+      email: user?.email,
+      review_time: reviewTime,
     };
     console.log(reviewData);
-    try {
-      const response = await fetch("http://localhost:5000/reviews", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(reviewData),
+    fetch("http://localhost:5000/reviews", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reviewData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          Swal.fire("Submitted!", "Your Review is Submitted", "success");
+        }
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to submit review");
-      }
-
-      console.log("Review submitted successfully!");
-      alert("Review submitted successfully!");
-      // Optionally close the modal after successful submission
-      document.getElementById("reviewModal").close();
-    } catch (error) {
-      console.error("Error submitting review:", error.message);
-    }
   };
 
   const handleWishList = async (e) => {
