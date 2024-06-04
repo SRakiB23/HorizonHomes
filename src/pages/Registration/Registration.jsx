@@ -48,7 +48,12 @@ const Register = () => {
 
     try {
       // **1. Create User in Firebase Authentication:**
-      const firebaseUser = await createUser(email, password); // Assuming createUser handles Firebase
+      const firebaseUser = await createUser(
+        email,
+        password,
+        displayName,
+        photoURL
+      ); // Assuming createUser handles Firebase
 
       // **2. Prepare User Data for MongoDB:**
       const userData = {

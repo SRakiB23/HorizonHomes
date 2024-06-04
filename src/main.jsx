@@ -16,6 +16,7 @@ import Profile from "./pages/Profile/Profile";
 import WishList from "./pages/WishList/WishList";
 import MakeOffer from "./pages/MakeOffer/MakeOffer";
 import MyReviews from "./pages/Reviews/MyReviews";
+import AddProperty from "./pages/AgentWorkList/AddProperty";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: "reviews",
         element: <MyReviews></MyReviews>,
+      },
+      {
+        path: "addproperty",
+        element: <AddProperty></AddProperty>,
       },
     ],
   },
