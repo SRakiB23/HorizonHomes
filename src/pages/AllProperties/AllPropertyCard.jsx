@@ -17,9 +17,9 @@ function AllPropertyCard({ property }) {
   } = property;
   return (
     <div className="max-w-7xl mx-auto">
-      <div className="card card-compact w-[400px] bg-base-100 shadow-xl">
+      <div className="card card-compact w-[400px] h-[550px] bg-base-100 shadow-xl">
         <figure>
-          <img className="h-64 w-full" src={image} alt="property" />
+          <img className="h-52 w-full" src={image} alt="property" />
         </figure>
         <div className="card-body">
           <div className="flex items-center  gap-4">

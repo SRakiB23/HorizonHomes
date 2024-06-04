@@ -27,7 +27,7 @@ const AddItems = () => {
       // now send the menu item data to the server with the image url
       const propertyItem = {
         property_name: data.property_name,
-        price_range: parseFloat(data.price_range),
+        price_range: data.price_range,
         location: data.location,
         image: res.data.data.display_url,
         verification_status: "pending",
