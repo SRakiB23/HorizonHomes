@@ -5,15 +5,18 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import { useParams } from "react-router-dom";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-const AddItems = () => {
+const UpdatePropertyForm = ({ item }) => {
+  const { id } = useParams();
   const { user } = useContext(AuthContext);
   const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
+  const { property_name } = item;
   const onSubmit = async (data) => {
     console.log(data);
     // image upload to imgbb and then get an url
@@ -27,25 +30,28 @@ const AddItems = () => {
       // now send the menu item data to the server with the image url
       const propertyItem = {
         property_name: data.property_name,
-        price_range: parseFloat(data.price_range),
+        price_range: data.price_range,
         location: data.location,
         image: res.data.data.display_url,
         verification_status: "pending",
         agent_name: user?.displayName,
         agent_email: user?.email,
         agent_image: user?.photoURL,
-        description: data.description,
       };
+      console.log(propertyItem);
 
-      const propertyRes = await axiosSecure.post("/properties", propertyItem);
+      const propertyRes = await axiosSecure.patch(
+        `/properties/${id}`,
+        propertyItem
+      );
       console.log(propertyRes.data);
-      if (propertyRes.data.insertedId) {
+      if (propertyRes.data.modifiedCount > 0) {
         // show success popup
         reset();
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: `${data.property_name} is added successfully.`,
+          title: `${data.property_name} is Updated Successfully.`,
           showConfirmButton: false,
           timer: 1500,
         });
@@ -60,11 +66,12 @@ const AddItems = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form-control w-full my-6">
             <label className="label">
-              <span className="label-text">Property Name*</span>
+              <span className="label-text">Property Title*</span>
             </label>
             <input
               type="text"
               placeholder="Property Name"
+              defaultValue={item.property_name}
               {...register("property_name", { required: true })}
               required
               className="input input-bordered w-full"
@@ -74,10 +81,11 @@ const AddItems = () => {
             {/* location */}
             <div className="form-control w-full my-6">
               <label className="label">
-                <span className="label-text">Location*</span>
+                <span className="label-text">Property Location*</span>
               </label>
               <input
                 type="text"
+                defaultValue={item.location}
                 placeholder="Location"
                 {...register("location", { required: true })}
                 required
@@ -92,6 +100,7 @@ const AddItems = () => {
               </label>
               <input
                 type="number"
+                defaultValue={item.price_range}
                 placeholder="Price"
                 {...register("price_range", { required: true })}
                 className="input input-bordered w-full"
@@ -125,19 +134,11 @@ const AddItems = () => {
               />
             </div>
           </div>
-          <div className="form-control w-full my-6">
-            <label className="label">
-              <span className="label-text">Description*</span>
-            </label>
-            <input
-              type="text"
-              placeholder="Description"
-              {...register("description", { required: true })}
-              className="input input-bordered w-full"
-            />
-          </div>
 
           <div className="form-control w-full my-6">
+            <label className="label">
+              <span className="label-text text-xl">Update Image</span>
+            </label>
             <input
               {...register("image", { required: true })}
               type="file"
@@ -146,7 +147,7 @@ const AddItems = () => {
           </div>
 
           <button className="btn w-full bg-[#ED2027] text-white font-bold text-lg">
-            Add Property
+            Update Property
           </button>
         </form>
       </div>
@@ -154,4 +155,4 @@ const AddItems = () => {
   );
 };
 
-export default AddItems;
+export default UpdatePropertyForm;

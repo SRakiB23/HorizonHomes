@@ -42,13 +42,13 @@ function AddedPropertiesCard({ item }) {
               <p className="text-lg font-bold">{agent_name}</p>
             </div>
             <div className="flex justify-evenly pt-4">
-              <Link to={`/makeoffer/${_id}`}>
+              <Link to={`/updateproperty/${_id}`}>
                 <button className="btn text-white bg-[#Ed2027] w-36">
-                  Make an Offer
+                  Update
                 </button>
               </Link>
               <button className="btn text-white bg-[#Ed2027] w-36">
-                Remove
+                Delete
               </button>
             </div>
           </div>

@@ -18,6 +18,7 @@ import MakeOffer from "./pages/MakeOffer/MakeOffer";
 import MyReviews from "./pages/Reviews/MyReviews";
 import AddProperty from "./pages/AgentWorkList/AddProperty";
 import AddedProperties from "./pages/AgentWorkList/AddedProperties";
+import UpdateProperty from "./pages/AgentWorkList/UpdateProperty";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "addedproperties",
         element: <AddedProperties></AddedProperties>,
+      },
+      {
+        path: "updateproperty/:id",
+        element: <UpdateProperty></UpdateProperty>,
       },
     ],
   },
