@@ -17,6 +17,7 @@ import WishList from "./pages/WishList/WishList";
 import MakeOffer from "./pages/MakeOffer/MakeOffer";
 import MyReviews from "./pages/Reviews/MyReviews";
 import AddProperty from "./pages/AgentWorkList/AddProperty";
+import AddedProperties from "./pages/AgentWorkList/AddedProperties";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: "addproperty",
         element: <AddProperty></AddProperty>,
+      },
+      {
+        path: "addedproperties",
+        element: <AddedProperties></AddedProperties>,
       },
     ],
   },
