@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import useWishListId from "../../hooks/useWishlistId";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import useWishListId from "../../hooks/useWishlistId";
 import getTodayDate from "../../hooks/useCalender";
 import submitReview from "../../hooks/useSubmitoffer";
 
@@ -9,7 +9,7 @@ function MakeOffer() {
   const { id } = useParams();
   const [wishlist] = useWishListId(id);
   const [offeredAmount, setOfferedAmount] = useState("");
-  const [buyingDate, setBuyingDate] = useState(getTodayDate());
+  const [buyingDate] = useState(getTodayDate());
 
   // Function to handle change in offered amount input
   const handleOfferedAmountChange = (e) => {
@@ -17,31 +17,55 @@ function MakeOffer() {
   };
 
   // Function to handle offer submission
-  const handleSubmitOffer = async (e, user) => {
+  const handleSubmitOffer = async (e) => {
     e.preventDefault();
+    const priceRange = wishlist?.price_range || "";
+
     // Parse the price range to extract min and max values
-    const [minPrice, maxPrice] = wishlist.price_range
-      .split(" - ")
-      .map((price) => {
-        return parseFloat(price.replace(/\$|,/g, ""));
+    const [minPrice, maxPrice] = priceRange.split("-").map((price) => {
+      return parseFloat(price.replace(/\$|,/g, ""));
+    });
+
+    if (isNaN(minPrice) || isNaN(maxPrice)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Price Range",
+        text: "The price range is not valid.",
       });
+      return;
+    }
+
     // Convert offered amount to number
     const amount = parseFloat(offeredAmount);
+
     // Check if the offered amount is within the price range
-    if (amount >= minPrice && amount <= maxPrice) {
-    } else {
-      // Offer is not within range, display an error message
+    if (amount < minPrice || amount > maxPrice) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: `Offered amount must be between ${minPrice} and ${maxPrice}. Please enter a valid amount.`,
+        text: `Offered amount must be between $${minPrice.toLocaleString()} and $${maxPrice.toLocaleString()}. Please enter a valid amount.`,
       });
+      return;
     }
+
     const formData = new FormData(e.target);
     try {
       await submitReview(formData, wishlist, id); // Call the submitReview function
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Offer submitted successfully.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } catch (error) {
       // Handle errors
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Submission failed",
+        text: "An error occurred during offer submission.",
+      });
     }
   };
 

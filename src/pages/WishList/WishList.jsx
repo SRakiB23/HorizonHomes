@@ -3,7 +3,7 @@ import useWishlist from "../../hooks/useWishlist";
 import WishListCard from "./WishListCard";
 
 function WishList() {
-  const [wishlist] = useWishlist();
+  const [wishlist, refetch] = useWishlist();
   return (
     <div>
       <h2 className="text-4xl font-bold text-center py-4">
@@ -11,7 +11,11 @@ function WishList() {
       </h2>
       <div className="max-w-7xl mx-auto grid lg:grid-cols-3 md:grid-cols-2 gap-4 sm: grid-cols-1">
         {wishlist.map((item) => (
-          <WishListCard key={item._id} item={item}></WishListCard>
+          <WishListCard
+            key={item._id}
+            item={item}
+            refetch={refetch}
+          ></WishListCard>
         ))}
       </div>
     </div>

@@ -82,11 +82,12 @@ const PropertyDetails = () => {
       verification_status: propertyDetails.verification_status,
       agent_image: propertyDetails.agent_image,
       agent_name: propertyDetails.agent_name,
+      agent_email: propertyDetails.agent_email,
       price_range: propertyDetails.price_range,
       location: propertyDetails.location,
       user_image: user?.photoURL,
       user_name: user?.displayName,
-      user_email: user?.email,
+      email: user?.email,
     };
     fetch("http://localhost:5000/wishlist", {
       method: "POST",

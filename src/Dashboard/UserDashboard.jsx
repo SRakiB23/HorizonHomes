@@ -15,9 +15,11 @@ function UserDashboard() {
             <h3>WishList</h3>
           </div>
         </Link>
-        <div className="bg-slate-100 shadow-xl p-5 rounded-xl border-4 border-b-[#ED2027]">
-          <h3>Property Bougth</h3>
-        </div>
+        <Link to="/propertybought">
+          <div className="bg-slate-100 shadow-xl p-5 rounded-xl border-4 border-b-[#ED2027]">
+            <h3>Property Bougth</h3>
+          </div>
+        </Link>
         <Link to="/reviews">
           <div className="bg-slate-100 shadow-xl p-5 rounded-xl border-4 border-b-[#ED2027]">
             <h3>My Reviews</h3>

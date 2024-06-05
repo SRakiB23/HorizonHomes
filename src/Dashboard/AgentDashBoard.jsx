@@ -27,7 +27,7 @@ function AgentDashBoard() {
             <h3>My Sold Properties</h3>
           </div>
         </Link>
-        <Link to="/wishlist">
+        <Link to="/requestedproperties">
           <div className="bg-slate-100 shadow-xl p-5 rounded-xl border-4 border-b-[#ED2027]">
             <h3>Requested Properties</h3>
           </div>

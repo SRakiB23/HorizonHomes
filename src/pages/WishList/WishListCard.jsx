@@ -3,7 +3,7 @@ import { FaLocationArrow, FaLocationDot, FaLocationPin } from "react-icons/fa6";
 import { MdVerified } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-function AllPropertyCard({ item }) {
+function AllPropertyCard({ item, refetch }) {
   const {
     property_name,
     _id,
@@ -17,9 +17,9 @@ function AllPropertyCard({ item }) {
   } = item;
   return (
     <div className="max-w-7xl mx-auto">
-      <div className="card card-compact w-[400px] bg-base-100 shadow-xl">
+      <div className="card card-compact w-[400px] h-full bg-base-100 shadow-xl">
         <figure>
-          <img className="h-64 w-full" src={image} alt="property" />
+          <img className="h-72 w-full" src={image} alt="property" />
         </figure>
         <div className="card-body">
           <div className="flex items-center  gap-4">
