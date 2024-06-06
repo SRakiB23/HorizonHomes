@@ -39,6 +39,22 @@ const MangeUser = () => {
     });
   };
 
+  const handleMarkFraud = (user) => {
+    axiosSecure.patch(`/users/agentt/${user._id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${user?.displayName} is Marked as FRAUD!!!`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
+    });
+  };
+
   const handleDeleteUser = (user) => {
     Swal.fire({
       title: "Are you sure?",
@@ -91,6 +107,8 @@ const MangeUser = () => {
                 <td>
                   {user.role === "admin" ? (
                     "Admin"
+                  ) : user.role === "fraud" ? (
+                    "Fraud"
                   ) : (
                     <div>
                       <button
@@ -99,19 +117,21 @@ const MangeUser = () => {
                       >
                         Make Admin
                       </button>
-                      {/* <button
-                        onClick={() => handleMakeAgent(user)}
-                        className="btn btn-sm bg-orange-500"
-                      >
-                        Make Agent
-                      </button> */}
                     </div>
                   )}
                 </td>
                 <td>
-                  {user.role === "agent" ? (
-                    "Agent"
-                  ) : (
+                  {user.role === "agent" && <span>Agent</span>}
+                  {user.role === "agent" && (
+                    <button
+                      onClick={() => handleMarkFraud(user)}
+                      className="btn btn-sm bg-orange-500 ml-2"
+                    >
+                      Mark as Fraud
+                    </button>
+                  )}
+                  {user.role === "fraud" && <span>Fraud</span>}
+                  {user.role !== "agent" && user.role !== "fraud" && (
                     <div>
                       <button
                         onClick={() => handleMakeAgent(user)}
@@ -122,6 +142,7 @@ const MangeUser = () => {
                     </div>
                   )}
                 </td>
+
                 <td>
                   <button
                     onClick={() => handleDeleteUser(user)}
