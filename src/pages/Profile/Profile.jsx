@@ -9,7 +9,9 @@ function Profile() {
   return (
     <div className="max-w-7xl mx-auto text-center">
       <h2 className="text-4xl font-bold py-6">
-        Welcome to My <span className="text-[#ED2027]">Profile</span>
+        Welcome to{" "}
+        <span className="text-[#ED2027]">{roleCheck?.role || "User"}</span>
+        <span className="]"> Profile</span>
       </h2>
       <div>
         <form className="w-1/2 mx-auto">

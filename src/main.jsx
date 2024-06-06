@@ -21,6 +21,9 @@ import AddedProperties from "./pages/AgentWorkList/AddedProperties";
 import UpdateProperty from "./pages/AgentWorkList/UpdateProperty";
 import RequestedProperties from "./pages/AgentWorkList/RequestedProperties";
 import PropertyBought from "./pages/PropertyBought/PropertyBought";
+import PayForProperty from "./pages/PropertyBought/PayForProperty";
+import ManageProperty from "./pages/AdminWorkList/ManageProperty";
+import ManageUsers from "./pages/AdminWorkList/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +75,10 @@ const router = createBrowserRouter([
         element: <PropertyBought></PropertyBought>,
       },
       {
+        path: "payment/:id",
+        element: <PayForProperty></PayForProperty>,
+      },
+      {
         path: "addproperty",
         element: <AddProperty></AddProperty>,
       },
@@ -86,6 +93,15 @@ const router = createBrowserRouter([
       {
         path: "requestedproperties",
         element: <RequestedProperties></RequestedProperties>,
+      },
+      //admin
+      {
+        path: "manageproperty",
+        element: <ManageProperty></ManageProperty>,
+      },
+      {
+        path: "manageuser",
+        element: <ManageUsers></ManageUsers>,
       },
     ],
   },

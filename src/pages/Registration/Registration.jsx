@@ -27,6 +27,7 @@ const Register = () => {
     const email = form.get("email");
     const photoURL = form.get("photoURL");
     const password = form.get("password");
+    const role = "";
 
     // Password validation
     const validatePassword = (password) => {
@@ -60,23 +61,12 @@ const Register = () => {
         displayName,
         email,
         photoURL,
-        // Include any additional user data you want to store in MongoDB
+        role,
       };
 
       // **3. Save User Data in MongoDB:**
       const mongoResponse = await useAxios.post("/users", userData);
       console.log("MongoDB response:", mongoResponse.data);
-
-      // **4. Optional: Create User Context (if using Context API):**
-      // If you're using Context API for user state management, create a user object and dispatch it to the context provider.
-      // This example assumes you have a `setUser` function in your AuthContext.
-
-      // const user = {
-      //   displayName,
-      //   email,
-      //   // Include any additional user data you want to manage in context
-      // };
-      // setUser(user);
 
       toast.success("Registration Successful");
       navigate(location?.state ? location.state : "/");

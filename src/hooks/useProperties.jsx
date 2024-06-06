@@ -5,9 +5,9 @@ const useProperties = () => {
   const axiosPublic = useAxiosPublic();
 
   const {
+    refetch,
     data: properties = [],
     isPending: loading,
-    refetch,
   } = useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
@@ -16,7 +16,7 @@ const useProperties = () => {
     },
   });
 
-  return [properties, loading, refetch];
+  return [properties, refetch, loading];
 };
 
 export default useProperties;

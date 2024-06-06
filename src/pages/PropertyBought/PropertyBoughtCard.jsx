@@ -48,7 +48,7 @@ function PropertyBoughtCard({ item, refetch }) {
           </div>
           {status === "accepted" && ( // Render button only if status is "accepted"
             <div className="pt-4 mx-auto">
-              <Link to={`/makeoffer/${_id}`}>
+              <Link to={`/payment/${_id}`}>
                 <button className="btn text-white bg-[#Ed2027] w-36">
                   Pay
                 </button>

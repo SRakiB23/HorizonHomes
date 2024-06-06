@@ -8,9 +8,9 @@ const useGetUser = () => {
   const axiosSecure = useAxiosSecure();
 
   const {
+    refetch,
     data: users = [],
     isPending: loading,
-    refetch,
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
@@ -19,7 +19,7 @@ const useGetUser = () => {
     },
   });
 
-  return [users, loading, refetch];
+  return [users, refetch, loading];
 };
 
 export default useGetUser;

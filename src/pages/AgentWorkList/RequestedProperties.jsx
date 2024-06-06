@@ -12,13 +12,14 @@ function RequestedProperties() {
   const handleAccepted = async (itemId) => {
     try {
       const response = await handleUpdateStatus(itemId, "accepted");
+      console.log(response);
+      refetch();
       if (response.success) {
         Swal.fire({
           title: "Success",
           text: "Property accepted successfully!",
           icon: "success",
         });
-        refetch(); // Refetch the data to update the UI
       } else {
         Swal.fire({
           title: "Error",
