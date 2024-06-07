@@ -19,27 +19,28 @@ function MakeOffer() {
   // Function to handle offer submission
   const handleSubmitOffer = async (e) => {
     e.preventDefault();
-    const priceRange = wishlist?.price_range || "";
+    const priceRange = wishlist?.price_range;
 
-    // Parse the price range to extract min and max values
-    const [minPrice, maxPrice] = priceRange.split("-").map((price) => {
-      return parseFloat(price.replace(/\$|,/g, ""));
-    });
+    // if (
+    //   !priceRange ||
+    //   typeof priceRange.min !== "number" ||
+    //   typeof priceRange.max !== "number"
+    // ) {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Invalid Price Range",
+    //     text: "The price range is not valid.",
+    //   });
+    //   return;
+    // }
 
-    if (isNaN(minPrice) || isNaN(maxPrice)) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Price Range",
-        text: "The price range is not valid.",
-      });
-      return;
-    }
+    const { min: minPrice, max: maxPrice } = priceRange;
 
     // Convert offered amount to number
     const amount = parseFloat(offeredAmount);
 
     // Check if the offered amount is within the price range
-    if (amount < minPrice || amount > maxPrice) {
+    if (isNaN(amount) || amount < minPrice || amount > maxPrice) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -152,17 +153,18 @@ function MakeOffer() {
             </div>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="form-control">
+            <div className="form-control w-full">
               <label className="label">
                 <span className="label-text">Price Range</span>
               </label>
               <input
                 type="text"
-                defaultValue={wishlist?.price_range}
+                value={`$${wishlist?.price_range?.min} - $${wishlist?.price_range?.max}`} // Access min and max using optional chaining
                 readOnly
                 className="input input-bordered"
               />
             </div>
+
             <div className="form-control">
               <label className="label">
                 <span className="label-text text-[#ED2027]">Offered Price</span>

@@ -43,8 +43,9 @@ const PropertyDetails = () => {
     }
   }, [id]);
 
-  const handleSubmitReview = async (e) => {
+  const handleSubmitReview = async (e, data) => {
     e.preventDefault();
+
     // Get the current date and time in ISO format
     const reviewTime = new Date().toISOString();
     const formData = new FormData(e.target);
@@ -74,8 +75,29 @@ const PropertyDetails = () => {
       });
   };
 
-  const handleWishList = async (e) => {
+  const handleWishList = async (e, data) => {
     e.preventDefault;
+
+    // Validate and combine min_price and max_price
+    const minPrice = propertyDetails.price_range.min;
+    const maxPrice = propertyDetails.price_range.max;
+
+    // if (
+    //   isNaN(minPrice) ||
+    //   minPrice < 0 ||
+    //   isNaN(maxPrice) ||
+    //   maxPrice < minPrice
+    // ) {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Invalid Price Range",
+    //     text: "Please enter a valid price range with min >= 0 and max >= min.",
+    //   });
+    //   return;
+    // }
+
+    // const priceRange = { pro, max: maxPrice };
+
     const wishList = {
       property_name: propertyDetails.property_name,
       image: propertyDetails.image,
@@ -83,7 +105,7 @@ const PropertyDetails = () => {
       agent_image: propertyDetails.agent_image,
       agent_name: propertyDetails.agent_name,
       agent_email: propertyDetails.agent_email,
-      price_range: propertyDetails.price_range,
+      price_range: { min: minPrice, max: maxPrice },
       location: propertyDetails.location,
       user_image: user?.photoURL,
       user_name: user?.displayName,
@@ -136,7 +158,8 @@ const PropertyDetails = () => {
                   {propertyDetails.property_name}
                 </h3>
                 <h3 className="text-2xl font-bold">
-                  {propertyDetails.price_range}
+                  ${propertyDetails.price_range.min} - $
+                  {propertyDetails.price_range.max}
                 </h3>
               </div>
               <div className="flex justify-between">

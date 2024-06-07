@@ -31,7 +31,9 @@ function AllPropertyCard({ property }) {
           <p className="flex items-center gap-1 text-base">
             <FaLocationDot /> {location}
           </p>
-          <p className="text-xl py-2 font-bold">{price_range}</p>
+          <p className="text-xl py-2 font-bold">
+            ${price_range.min}-${price_range.max}
+          </p>
           <p className="divider"></p>
           <div className="avatar flex items-center gap-2">
             <div className="w-12 rounded-full flex">

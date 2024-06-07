@@ -26,11 +26,32 @@ const UpdatePropertyForm = ({ item }) => {
         "content-type": "multipart/form-data",
       },
     });
+
+    // Validate and combine min_price and max_price
+    const minPrice = parseFloat(data.min_price);
+    const maxPrice = parseFloat(data.max_price);
+
+    if (
+      isNaN(minPrice) ||
+      minPrice < 0 ||
+      isNaN(maxPrice) ||
+      maxPrice < minPrice
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Price Range",
+        text: "Please enter a valid price range with min >= 0 and max >= min.",
+      });
+      return;
+    }
+
+    const priceRange = { min: minPrice, max: maxPrice };
+
     if (res.data.success) {
       // now send the menu item data to the server with the image url
       const propertyItem = {
         property_name: data.property_name,
-        price_range: data.price_range,
+        price_range: priceRange,
         location: data.location,
         image: res.data.data.display_url,
         verification_status: "pending",
@@ -96,13 +117,25 @@ const UpdatePropertyForm = ({ item }) => {
             {/* price */}
             <div className="form-control w-full my-6">
               <label className="label">
-                <span className="label-text">Price*</span>
+                <span className="label-text">Min Price*</span>
               </label>
               <input
                 type="number"
-                defaultValue={item.price_range}
-                placeholder="Price"
-                {...register("price_range", { required: true })}
+                placeholder="Min Price"
+                defaultValue={item.price_range?.min}
+                {...register("min_price", { required: true, min: 0 })}
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="form-control w-full my-6">
+              <label className="label">
+                <span className="label-text">Max Price*</span>
+              </label>
+              <input
+                type="number"
+                defaultValue={item.price_range?.max}
+                placeholder="Max Price"
+                {...register("max_price", { required: true, min: 0 })}
                 className="input input-bordered w-full"
               />
             </div>

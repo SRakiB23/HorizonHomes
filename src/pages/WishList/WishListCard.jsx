@@ -2,8 +2,11 @@ import React from "react";
 import { FaLocationArrow, FaLocationDot, FaLocationPin } from "react-icons/fa6";
 import { MdVerified } from "react-icons/md";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 function AllPropertyCard({ item, refetch }) {
+  const axiosSecure = useAxiosSecure();
   const {
     property_name,
     _id,
@@ -15,6 +18,32 @@ function AllPropertyCard({ item, refetch }) {
     agent_name,
     agent_image,
   } = item;
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/wishlist/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Removed!",
+              text: "Your Wishlisted Property Removed Successfully!.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
+
   return (
     <div className="max-w-7xl mx-auto">
       <div className="card card-compact w-[400px] h-full bg-base-100 shadow-xl">
@@ -31,7 +60,9 @@ function AllPropertyCard({ item, refetch }) {
           <p className="flex items-center gap-1 text-base">
             <FaLocationDot /> {location}
           </p>
-          <p className="text-xl py-2 font-bold">{price_range}</p>
+          <p className="text-xl py-2 font-bold">
+            ${price_range.min} - ${price_range.max}
+          </p>
           <p className="divider"></p>
           <div className="avatar flex items-center gap-2">
             <h2 className="text-lg font-bold text-slate-400">Agent:</h2>
@@ -46,7 +77,12 @@ function AllPropertyCard({ item, refetch }) {
                 Make an Offer
               </button>
             </Link>
-            <button className="btn text-white bg-[#Ed2027] w-36">Remove</button>
+            <button
+              onClick={() => handleDelete(_id)}
+              className="btn text-white bg-[#Ed2027] w-36"
+            >
+              Remove
+            </button>
           </div>
         </div>
       </div>

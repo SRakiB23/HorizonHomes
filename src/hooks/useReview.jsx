@@ -5,9 +5,9 @@ const useReviews = () => {
   const axiosPublic = useAxiosPublic();
 
   const {
+    refetch,
     data: reviews = [],
     isPending: loading,
-    refetch,
   } = useQuery({
     queryKey: ["reviews"],
     queryFn: async () => {
@@ -16,7 +16,7 @@ const useReviews = () => {
     },
   });
 
-  return [reviews, loading, refetch];
+  return [reviews, refetch, loading];
 };
 
 export default useReviews;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useAgent from "../hooks/useAgent";
 import useGetUser from "../hooks/useGetUser";
 
@@ -22,7 +22,7 @@ function AdminDashboard() {
             <h3>Manage Users</h3>
           </div>
         </Link>
-        <Link to="/wishlist">
+        <Link to="/managereviews">
           <div className="bg-slate-100 shadow-xl p-5 rounded-xl border-4 border-b-[#ED2027]">
             <h3>Manage Reviews</h3>
           </div>

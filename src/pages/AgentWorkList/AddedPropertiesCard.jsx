@@ -80,7 +80,9 @@ function AddedPropertiesCard({ item, refetch }) {
             <p className="flex items-center gap-1 text-base">
               <FaLocationDot /> {location}
             </p>
-            <p className="text-xl py-2 font-bold">{price_range}</p>
+            <p className="text-xl py-2 font-bold">
+              ${price_range.min} - ${price_range.max}
+            </p>
             <p className="divider"></p>
             <div className="avatar flex items-center gap-2">
               <h2 className="text-lg font-bold text-slate-400">Agent:</h2>
@@ -90,11 +92,13 @@ function AddedPropertiesCard({ item, refetch }) {
               <p className="text-lg font-bold">{agent_name}</p>
             </div>
             <div className="flex justify-evenly pt-4">
-              <Link to={`/updateproperty/${_id}`}>
-                <button className="btn text-white bg-[#Ed2027] w-36">
-                  Update
-                </button>
-              </Link>
+              {verification_status !== "rejected" && (
+                <Link to={`/updateproperty/${_id}`}>
+                  <button className="btn text-white bg-[#Ed2027] w-36">
+                    Update
+                  </button>
+                </Link>
+              )}
               <button
                 className="btn text-white bg-[#Ed2027] w-36"
                 onClick={() => handleDelete(_id)}

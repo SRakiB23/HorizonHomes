@@ -2,7 +2,7 @@ import React from "react";
 import useProperties from "../../hooks/useProperties";
 import Swal from "sweetalert2";
 import handleVerifyStatus from "../../hooks/useHandleVerifyStatus";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function ManageProperty() {
   const { _id } = useParams();
@@ -120,6 +120,11 @@ function ManageProperty() {
             </table>
           </div>
         </div>
+      </div>
+      <div className="text-center py-6">
+        <Link to="/dashboard">
+          <button className="btn bg-[#ED2027] text-white">Go Back</button>
+        </Link>
       </div>
     </div>
   );

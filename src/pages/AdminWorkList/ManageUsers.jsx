@@ -3,6 +3,9 @@ import { FaTrashAlt, FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useGetUser from "../../hooks/useGetUser";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
+import { RiAdminLine } from "react-icons/ri";
+import { FaLock } from "react-icons/fa6";
 
 const MangeUser = () => {
   const [users, refetch] = useGetUser();
@@ -71,7 +74,7 @@ const MangeUser = () => {
             refetch();
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "User has been deleted.",
               icon: "success",
             });
           }
@@ -82,9 +85,10 @@ const MangeUser = () => {
 
   return (
     <div>
-      <div className="flex justify-evenly my-4">
-        <h2 className="text-3xl">All Users</h2>
-        <h2 className="text-3xl">Total Users: {users.length}</h2>
+      <div className=" text-center my-6">
+        <h2 className="text-3xl font-bold">
+          Manage <span className="text-[#ED2027]">Users</span>
+        </h2>
       </div>
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
@@ -113,8 +117,9 @@ const MangeUser = () => {
                     <div>
                       <button
                         onClick={() => handleMakeAdmin(user)}
-                        className="btn btn-sm bg-orange-500"
+                        className="btn btn-sm bg-[#ED2027] text-white"
                       >
+                        <RiAdminLine className="text-2xl" />
                         Make Admin
                       </button>
                     </div>
@@ -125,8 +130,9 @@ const MangeUser = () => {
                   {user.role === "agent" && (
                     <button
                       onClick={() => handleMarkFraud(user)}
-                      className="btn btn-sm bg-orange-500 ml-2"
+                      className="btn btn-sm bg-[#ED2027] text-white ml-2"
                     >
+                      <FaLock className="text-xl" />
                       Mark as Fraud
                     </button>
                   )}
@@ -135,8 +141,12 @@ const MangeUser = () => {
                     <div>
                       <button
                         onClick={() => handleMakeAgent(user)}
-                        className="btn btn-sm bg-orange-500"
+                        className="btn btn-sm bg-[#ED2027] text-white"
                       >
+                        <FaUsers
+                          className="text-white 
+                                        text-2xl"
+                        ></FaUsers>
                         Make Agent
                       </button>
                     </div>
@@ -155,6 +165,11 @@ const MangeUser = () => {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="text-center py-6">
+        <Link to="/dashboard">
+          <button className="btn bg-[#ED2028] text-white w-60">Go Back</button>
+        </Link>
       </div>
     </div>
   );

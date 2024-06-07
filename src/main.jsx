@@ -24,6 +24,7 @@ import PropertyBought from "./pages/PropertyBought/PropertyBought";
 import PayForProperty from "./pages/PropertyBought/PayForProperty";
 import ManageProperty from "./pages/AdminWorkList/ManageProperty";
 import ManageUsers from "./pages/AdminWorkList/ManageUsers";
+import ManageReviews from "./pages/AdminWorkList/ManageReviews";
 
 const router = createBrowserRouter([
   {
@@ -103,6 +104,10 @@ const router = createBrowserRouter([
         path: "manageuser",
         element: <ManageUsers></ManageUsers>,
       },
+      {
+        path: "managereviews",
+        element: <ManageReviews></ManageReviews>,
+      },
     ],
   },
 ]);
@@ -118,5 +123,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </div>
       </QueryClientProvider>
     </AuthProvider>
+    <ToastContainer />
   </React.StrictMode>
 );

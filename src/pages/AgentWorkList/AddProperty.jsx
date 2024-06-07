@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { FaUtensils } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -14,9 +13,31 @@ const AddItems = () => {
   const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
+
   const onSubmit = async (data) => {
     console.log(data);
-    // image upload to imgbb and then get an url
+
+    // Validate and combine min_price and max_price
+    const minPrice = parseFloat(data.min_price);
+    const maxPrice = parseFloat(data.max_price);
+
+    if (
+      isNaN(minPrice) ||
+      minPrice < 0 ||
+      isNaN(maxPrice) ||
+      maxPrice < minPrice
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Price Range",
+        text: "Please enter a valid price range with min >= 0 and max >= min.",
+      });
+      return;
+    }
+
+    const priceRange = { min: minPrice, max: maxPrice };
+
+    // Image upload to imgbb and then get a URL
     const imageFile = { image: data.image[0] };
     const res = await axiosPublic.post(image_hosting_api, imageFile, {
       headers: {
@@ -24,10 +45,10 @@ const AddItems = () => {
       },
     });
     if (res.data.success) {
-      // now send the menu item data to the server with the image url
+      // Send the property item data to the server with the image URL
       const propertyItem = {
         property_name: data.property_name,
-        price_range: data.price_range,
+        price_range: priceRange,
         location: data.location,
         image: res.data.data.display_url,
         verification_status: "pending",
@@ -40,7 +61,7 @@ const AddItems = () => {
       const propertyRes = await axiosSecure.post("/properties", propertyItem);
       console.log(propertyRes.data);
       if (propertyRes.data.insertedId) {
-        // show success popup
+        // Show success popup
         reset();
         Swal.fire({
           position: "top-end",
@@ -85,15 +106,26 @@ const AddItems = () => {
               />
             </div>
 
-            {/* price */}
+            {/* price range */}
             <div className="form-control w-full my-6">
               <label className="label">
-                <span className="label-text">Price*</span>
+                <span className="label-text">Min Price*</span>
               </label>
               <input
                 type="number"
-                placeholder="Price"
-                {...register("price_range", { required: true })}
+                placeholder="Min Price"
+                {...register("min_price", { required: true, min: 0 })}
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="form-control w-full my-6">
+              <label className="label">
+                <span className="label-text">Max Price*</span>
+              </label>
+              <input
+                type="number"
+                placeholder="Max Price"
+                {...register("max_price", { required: true, min: 0 })}
                 className="input input-bordered w-full"
               />
             </div>

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import useGetUser from "../../hooks/useGetUser";
+import { Link } from "react-router-dom";
 
 function Profile() {
   const { user } = useContext(AuthContext);
@@ -47,6 +48,11 @@ function Profile() {
             )}
           </div>
         </form>
+      </div>
+      <div className="text-center py-6">
+        <Link to="/dashboard">
+          <button className="btn bg-[#ED2027] text-white">Go Back</button>
+        </Link>
       </div>
     </div>
   );
