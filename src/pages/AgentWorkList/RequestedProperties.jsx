@@ -94,7 +94,7 @@ function RequestedProperties() {
                   <td>${item.offered_price}</td>
                   <td className="text-[#Ed2027]">{item.status}</td>
                   <td>
-                    {item.status === "pending" ? (
+                    {item?.status === "pending" ? (
                       <>
                         <button
                           className="btn btn-ghost btn-sm text-white bg-[#ED2027]"
@@ -112,13 +112,15 @@ function RequestedProperties() {
                     ) : (
                       <span
                         className={`status ${
-                          item.status === "accepted"
+                          item?.status === "accepted"
                             ? "text-green-500"
                             : "text-red-500"
                         }`}
                       >
-                        {item.status.charAt(0).toUpperCase() +
-                          item.status.slice(1)}
+                        {item?.status
+                          ? item.status.charAt(0).toUpperCase() +
+                            item.status.slice(1)
+                          : "Unknown"}
                       </span>
                     )}
                   </td>

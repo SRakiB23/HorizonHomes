@@ -5,7 +5,7 @@ const useWishlistId = (id) => {
   const axiosPublic = useAxiosPublic();
 
   const {
-    data: wishlist = [],
+    data: wishlist = {},
     isPending: loading,
     refetch,
   } = useQuery({

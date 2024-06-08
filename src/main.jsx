@@ -25,6 +25,7 @@ import PayForProperty from "./pages/PropertyBought/PayForProperty";
 import ManageProperty from "./pages/AdminWorkList/ManageProperty";
 import ManageUsers from "./pages/AdminWorkList/ManageUsers";
 import ManageReviews from "./pages/AdminWorkList/ManageReviews";
+import SoldProperties from "./pages/AgentWorkList/SoldProperties";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
       {
         path: "requestedproperties",
         element: <RequestedProperties></RequestedProperties>,
+      },
+      {
+        path: "soldproperties",
+        element: <SoldProperties></SoldProperties>,
       },
       //admin
       {

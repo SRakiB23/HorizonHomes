@@ -82,22 +82,6 @@ const PropertyDetails = () => {
     const minPrice = propertyDetails.price_range.min;
     const maxPrice = propertyDetails.price_range.max;
 
-    // if (
-    //   isNaN(minPrice) ||
-    //   minPrice < 0 ||
-    //   isNaN(maxPrice) ||
-    //   maxPrice < minPrice
-    // ) {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Invalid Price Range",
-    //     text: "Please enter a valid price range with min >= 0 and max >= min.",
-    //   });
-    //   return;
-    // }
-
-    // const priceRange = { pro, max: maxPrice };
-
     const wishList = {
       property_name: propertyDetails.property_name,
       image: propertyDetails.image,

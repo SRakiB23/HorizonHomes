@@ -15,7 +15,7 @@ function PropertyBoughtCard({ item, refetch }) {
   } = item;
   return (
     <div>
-      <div className="card card-compact w-[420px] h-full bg-base-100 shadow-xl">
+      <div className="card card-compact w-[420px] max-hh-[700px] bg-base-100 shadow-xl">
         <figure>
           <img className="h-72 w-full" src={image} alt="property" />
         </figure>
@@ -29,7 +29,9 @@ function PropertyBoughtCard({ item, refetch }) {
             </p>
             <p
               className={`text-lg flex items-center ${
-                status === "accepted" ? "text-green-500" : "text-red-500"
+                status === "accepted" || status === "bought"
+                  ? "text-green-500"
+                  : "text-red-500"
               }`}
             >
               <MdVerified /> {status}
@@ -46,7 +48,7 @@ function PropertyBoughtCard({ item, refetch }) {
             </div>
             <p className="text-lg font-bold">{agent_name}</p>
           </div>
-          {status === "accepted" && ( // Render button only if status is "accepted"
+          {status === "accepted" ? (
             <div className="pt-4 mx-auto">
               <Link to={`/payment/${_id}`}>
                 <button className="btn text-white bg-[#Ed2027] w-36">
@@ -54,7 +56,13 @@ function PropertyBoughtCard({ item, refetch }) {
                 </button>
               </Link>
             </div>
-          )}
+          ) : status === "bought" && item?.transcation_id ? (
+            <div className="pt-4 mx-auto">
+              <span className="text-blue-700 text-lg">
+                Transaction ID: {item?.transcation_id}
+              </span>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
