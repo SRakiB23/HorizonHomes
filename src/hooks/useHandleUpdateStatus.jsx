@@ -1,12 +1,10 @@
 // src/api/updateStatus.js
 
 import axios from "axios";
-import useAxiosSecure from "./useAxiosSecure";
 
-const handleUpdateStatus = async (id, newStatus) => {
-  const axiosSecure = useAxiosSecure();
+const handleUpdateStatus = async (axiosInstance, id, newStatus) => {
   try {
-    const response = await axiosSecure.patch(`/wishlistt/${id}`, {
+    const response = await axiosInstance.patch(`/wishlistR/${id}`, {
       status: newStatus,
     });
     if (response.data.success) {

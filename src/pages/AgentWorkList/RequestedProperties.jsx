@@ -4,15 +4,22 @@ import { Link, useParams } from "react-router-dom";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import useWishlisted from "../../hooks/useWishlisted";
 import handleUpdateStatus from "../../hooks/useHandleUpdateStatus";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 function RequestedProperties() {
   const { id } = useParams();
   const [wishlist, refetch] = useWishlisted();
+  const axiosSecure = useAxiosSecure();
 
   const handleAccepted = async (itemId) => {
     try {
-      const response = await handleUpdateStatus(itemId, "accepted");
-      console.log(response);
+      console.log("Accepting property with ID:", itemId);
+      const response = await handleUpdateStatus(
+        axiosSecure,
+        itemId,
+        "accepted"
+      );
+      console.log("Response from accepting property:", response);
       refetch();
       if (response.success) {
         Swal.fire({
@@ -28,6 +35,7 @@ function RequestedProperties() {
         });
       }
     } catch (error) {
+      console.error("Error accepting property:", error);
       Swal.fire({
         title: "Error",
         text: "Failed to accept the property",
@@ -38,14 +46,20 @@ function RequestedProperties() {
 
   const handleRejected = async (itemId) => {
     try {
-      const response = await handleUpdateStatus(itemId, "rejected");
+      console.log("Rejecting property with ID:", itemId);
+      const response = await handleUpdateStatus(
+        axiosSecure,
+        itemId,
+        "rejected"
+      );
+      console.log("Response from rejecting property:", response);
+      refetch(); // Refetch the data to update the UI
       if (response.success) {
         Swal.fire({
           title: "Success",
           text: "Property rejected successfully!",
           icon: "success",
         });
-        refetch(); // Refetch the data to update the UI
       } else {
         Swal.fire({
           title: "Error",
@@ -54,6 +68,7 @@ function RequestedProperties() {
         });
       }
     } catch (error) {
+      console.error("Error rejecting property:", error);
       Swal.fire({
         title: "Error",
         text: "Failed to reject the property",
@@ -71,7 +86,7 @@ function RequestedProperties() {
         <div className="overflow-x-auto">
           <table className="table w-full">
             {/* head */}
-            <thead>
+            <thead className="text-lg">
               <tr>
                 <th>#</th>
                 <th>Property Name</th>

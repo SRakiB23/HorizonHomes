@@ -63,6 +63,7 @@ const PropertyDetails = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("access-token")}`,
       },
       body: JSON.stringify(reviewData),
     })
@@ -99,6 +100,7 @@ const PropertyDetails = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("access-token")}`,
       },
       body: JSON.stringify(wishList),
     })
