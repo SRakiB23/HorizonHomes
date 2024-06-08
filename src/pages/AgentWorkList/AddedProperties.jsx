@@ -1,6 +1,7 @@
 import React from "react";
 import useAgentAddProperty from "../../hooks/useAgentAddProperty";
 import AddedPropertiesCard from "./AddedPropertiesCard";
+import { Link } from "react-router-dom";
 
 function AddedProperties() {
   const [property, refetch] = useAgentAddProperty();
@@ -18,6 +19,11 @@ function AddedProperties() {
             refetch={refetch}
           ></AddedPropertiesCard>
         ))}
+      </div>
+      <div className="text-center py-6">
+        <Link to="/dashboard">
+          <button className="btn bg-[#ED2027] text-white">Go Back</button>
+        </Link>
       </div>
     </div>
   );

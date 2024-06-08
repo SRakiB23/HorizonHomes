@@ -130,6 +130,11 @@ function RequestedProperties() {
           </table>
         </div>
       </div>
+      <div className="text-center py-6">
+        <Link to="/dashboard">
+          <button className="btn bg-[#ED2027] text-white">Go Back</button>
+        </Link>
+      </div>
     </div>
   );
 }

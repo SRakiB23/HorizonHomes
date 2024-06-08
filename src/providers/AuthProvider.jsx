@@ -11,6 +11,7 @@ import { createContext, useEffect, useState } from "react";
 import { GoogleAuthProvider } from "firebase/auth";
 import { GithubAuthProvider } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 //   import axios from "axios";
 
 export const AuthContext = createContext(null);
@@ -24,6 +25,7 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
+  const axiosPublic = useAxiosPublic();
   // console.log(user);
 
   //create user
@@ -75,28 +77,26 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      const userEmail = currentUser?.email || user?.email;
-      const loggedUser = { email: userEmail };
-      // console.log("user in the auth state changed");
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        // get token and store client
+        const userInfo = { email: currentUser.email };
+        axiosPublic.post("/jwt", userInfo).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
+          }
+        });
+      } else {
+        // TODO: remove token (if token stored in the client side: Local storage, caching, in memory)
+        localStorage.removeItem("access-token");
+      }
       setLoading(false);
-      //if user existes then issue a token
-      // if (currentUser) {
-      //   axios
-      //     .post("https://studysync-network.vercel.app/jwt", loggedUser, {
-      //       withCredentials: true,
-      //     })
-      //     .then((res) => {
-      //       // console.log("token response:", res.data);
-      //     });
-      // }
     });
     return () => {
-      unSubscribe();
+      return unsubscribe();
     };
-  }, []);
-
+  }, [axiosPublic]);
   const authInfo = {
     user,
     loading,
