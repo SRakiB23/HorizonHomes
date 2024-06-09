@@ -27,6 +27,11 @@ function AdminDashboard() {
             <h3>Manage Reviews</h3>
           </div>
         </Link>
+        <Link to="/advertiseproperty">
+          <div className="bg-slate-100 shadow-xl p-5 rounded-xl border-4 border-b-[#ED2027]">
+            <h3>Adverstise Property</h3>
+          </div>
+        </Link>
       </div>
     </div>
   );

@@ -3,41 +3,29 @@ import useProperties from "../../hooks/useProperties";
 import Swal from "sweetalert2";
 import handleVerifyStatus from "../../hooks/useHandleVerifyStatus";
 import { Link, useParams } from "react-router-dom";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 function ManageProperty() {
   const { _id } = useParams();
   const [properties, refetch] = useProperties();
+  const axiosSecure = useAxiosSecure();
 
   const handleAccepted = async (itemId) => {
-    const response = await handleVerifyStatus(itemId, "verified");
-    console.log(response);
-    if (response.success) {
-      refetch();
-      Swal.fire({
-        title: "Success",
-        text: "Property verify successfully!",
-        icon: "success",
-      });
-    } else {
-      Swal.fire({
-        title: "Error",
-        text: response.message,
-        icon: "error",
-      });
-    }
-  };
-
-  const handleRejected = async (itemId) => {
     try {
-      const response = await handleVerifyStatus(itemId, "rejected");
-      console.log(response);
+      console.log("Verifing property with ID:", itemId);
+      const response = await handleVerifyStatus(
+        axiosSecure,
+        itemId,
+        "verified"
+      );
+      console.log("Response from accepting property:", response);
+      refetch();
       if (response.success) {
         Swal.fire({
           title: "Success",
-          text: "Property rejected successfully!",
+          text: "Property verified successfully!",
           icon: "success",
         });
-        refetch(); // Refetch the data to update the UI
       } else {
         Swal.fire({
           title: "Error",
@@ -46,6 +34,40 @@ function ManageProperty() {
         });
       }
     } catch (error) {
+      console.error("Error verified property:", error);
+      Swal.fire({
+        title: "Error",
+        text: "Failed to accept the property",
+        icon: "error",
+      });
+    }
+  };
+
+  const handleRejected = async (itemId) => {
+    try {
+      console.log("Rejecting property with ID:", itemId);
+      const response = await handleVerifyStatus(
+        axiosSecure,
+        itemId,
+        "rejected"
+      );
+      console.log("Response from rejecting property:", response);
+      refetch(); // Refetch the data to update the UI
+      if (response.success) {
+        Swal.fire({
+          title: "Success",
+          text: "Property rejected successfully!",
+          icon: "success",
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: response.message,
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Error rejecting property:", error);
       Swal.fire({
         title: "Error",
         text: "Failed to reject the property",
@@ -83,7 +105,9 @@ function ManageProperty() {
                     <td>{item.location}</td>
                     <td>{item.agent_name}</td>
                     <td>{item.agent_email}</td>
-                    <td>{item.price_range}</td>
+                    <td>
+                      ${item.price_range.min}-${item.price_range.max}
+                    </td>
                     <td>{item.verification_status}</td>
                     <td>
                       {item.verification_status === "pending" ? (

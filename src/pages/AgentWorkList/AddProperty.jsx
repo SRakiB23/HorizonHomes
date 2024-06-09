@@ -44,6 +44,7 @@ const AddItems = () => {
     const res = await axiosPublic.post(image_hosting_api, imageFile, {
       headers: {
         "content-type": "multipart/form-data",
+        // authorization: `Bearer ${localStorage.getItem("access-token")}`,
       },
     });
     if (res.data.success) {
@@ -60,7 +61,7 @@ const AddItems = () => {
         description: data.description,
       };
 
-      const propertyRes = await axiosSecure.post("/properties", propertyItem);
+      const propertyRes = await axiosPublic.post("/properties", propertyItem);
       console.log(propertyRes.data);
       if (propertyRes.data.insertedId) {
         // Show success popup

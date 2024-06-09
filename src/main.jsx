@@ -26,11 +26,15 @@ import ManageProperty from "./pages/AdminWorkList/ManageProperty";
 import ManageUsers from "./pages/AdminWorkList/ManageUsers";
 import ManageReviews from "./pages/AdminWorkList/ManageReviews";
 import SoldProperties from "./pages/AgentWorkList/SoldProperties";
+import AdvertieseProperty from "./pages/AdminWorkList/AdvertiseProperty";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
+import PrivateRoute from "./routes/PrivateRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -38,7 +42,11 @@ const router = createBrowserRouter([
       },
       {
         path: "allProperties",
-        element: <AllProperties></AllProperties>,
+        element: (
+          <PrivateRoute>
+            <AllProperties></AllProperties>
+          </PrivateRoute>
+        ),
       },
       {
         path: "login",
@@ -46,7 +54,11 @@ const router = createBrowserRouter([
       },
       {
         path: "propertyDetails/:id",
-        element: <PropertyDetails></PropertyDetails>,
+        element: (
+          <PrivateRoute>
+            <PropertyDetails></PropertyDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "register",
@@ -54,11 +66,20 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <Profile></Profile>,
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
       {
         path: "dashboard",
-        element: <Dashboard></Dashboard>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <Dashboard></Dashboard>
+          </PrivateRoute>
+        ),
       },
       {
         path: "wishlist",
@@ -112,6 +133,10 @@ const router = createBrowserRouter([
       {
         path: "managereviews",
         element: <ManageReviews></ManageReviews>,
+      },
+      {
+        path: "advertiseproperty",
+        element: <AdvertieseProperty></AdvertieseProperty>,
       },
     ],
   },

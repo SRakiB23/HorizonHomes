@@ -44,6 +44,12 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
+        <NavLink to="/allProperties">All Properties</NavLink>
+      </li>
+      <li>
+        <NavLink to="/dashboard">Dashboard</NavLink>
+      </li>
+      <li>
         <NavLink to="/login">Login</NavLink>
       </li>
     </>
@@ -51,7 +57,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="navbar md: max-w-screen-2xl mx-auto">
+      <div className="navbar md: max-w-screen-2xl mx-auto sm: flex">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -143,35 +149,31 @@ const Navbar = () => {
         </div>
         <div className="navbar-end flex items-center">
           {user?.email ? (
-            <div className="dropdown dropdown-bottom dropdown-end">
-              <div tabIndex={0} role="button">
-                <div className="avatar">
-                  <div className="w-20 rounded-full">
-                    <img src={user ? user?.photoURL : ""} alt="user profile" />
-                  </div>
-                  <ul
-                    tabIndex={0}
-                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-                  >
-                    <li>
-                      <NavLink to="/attemptedassignment">
-                        My Attempted Assignments
-                      </NavLink>
-                    </li>
-                    <li className="font-bold text-xl">
-                      <button className="btn bg-red-400" onClick={handleLogOut}>
-                        LogOut
-                      </button>
-                    </li>
-                  </ul>
+            <div className="md:flex items-center">
+              <div>
+                <h2 className="mr-4 text-[#Ed2027] bg-slate-100 p-2 rounded-lg">
+                  {user?.displayName}
+                </h2>
+              </div>
+              <div className="avatar">
+                <div className="w-20 rounded-full">
+                  <img src={user ? user?.photoURL : ""} alt="user profile" />
                 </div>
               </div>
+              <button
+                className="btn bg-[#Ed2027] text-white"
+                onClick={handleLogOut}
+              >
+                LogOut
+              </button>
             </div>
           ) : (
-            // <Link to="/login" className="btn bg-yellow-400 ml-2 font-bold">
-            //   Login
-            // </Link>
-            ""
+            <Link
+              to="/login"
+              className="btn bg-[#Ed2027] text-white ml-2 font-bold"
+            >
+              Login
+            </Link>
           )}
         </div>
       </div>

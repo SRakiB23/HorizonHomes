@@ -1,22 +1,20 @@
 // src/api/updateStatus.js
 
 import axios from "axios";
-import useAxiosSecure from "./useAxiosSecure";
 
-const handleVerifyStatus = async (id, newStatus) => {
-  const axiosSecure = useAxiosSecure();
+const handleVerifyStatus = async (axiosInstance, id, newStatus) => {
   try {
-    const response = await axiosSecure.patch(`/propertiess/${id}`, {
+    const response = await axiosInstance.patch(`/propertiess/${id}`, {
       verification_status: newStatus,
     });
     if (response.data.success) {
-      return { success: true, verification_status: newStatus };
+      return { success: true, status: newStatus };
     } else {
-      return { success: false, message: "Failed to verify status" };
+      return { success: false, message: "Failed to update status" };
     }
   } catch (error) {
-    console.error("Error verify status:", error);
-    return { success: false, message: "Error verify status" };
+    console.error("Error updating status:", error);
+    return { success: false, message: "Error updating status" };
   }
 };
 

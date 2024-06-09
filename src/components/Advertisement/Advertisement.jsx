@@ -3,10 +3,11 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import AdvertisementCard from "./AdvertisementCard";
 import useProperties from "../../hooks/useProperties";
 import useVerifiedProperties from "../../hooks/useVerifiedProperty";
+import useAdvertiseProperty from "../../hooks/useAdvertiseProperty";
 
 function Advertisement() {
   const axiosPublic = useAxiosPublic();
-  const [properties] = useProperties();
+  const [properties] = useAdvertiseProperty();
 
   return (
     <div className="max-w-7xl mx-auto">
