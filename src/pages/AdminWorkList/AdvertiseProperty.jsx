@@ -87,12 +87,16 @@ function AdvertieseProperty() {
                 </td>
                 <td>{item.agent_name}</td>
                 <td>
-                  <button
-                    className="btn btn-sm bg-[#Ed2027] text-white"
-                    onClick={() => handleAccepted(item._id)}
-                  >
-                    Advertise
-                  </button>
+                  {item?.advertisement ? (
+                    <p className="text-green-500">"Advertised"</p>
+                  ) : (
+                    <button
+                      className="btn btn-sm bg-[#Ed2027] text-white"
+                      onClick={() => handleAccepted(item._id)}
+                    >
+                      Advertise
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}

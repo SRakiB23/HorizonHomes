@@ -44,8 +44,8 @@ const MangeUser = () => {
 
   const handleMarkFraud = (user) => {
     axiosSecure.patch(`/users/agentt/${user._id}`).then((res) => {
-      console.log(res.data);
-      if (res.data.modifiedCount > 0) {
+      // console.log(res.data);
+      if (res.data.userUpdateResult.modifiedCount > 0) {
         refetch();
         Swal.fire({
           position: "top-end",
@@ -111,7 +111,7 @@ const MangeUser = () => {
                 <td>
                   {user.role === "admin" ? (
                     "Admin"
-                  ) : user.role === "fraud" ? (
+                  ) : user.fraud === "fraud" ? (
                     "Fraud"
                   ) : (
                     <div>
@@ -126,30 +126,27 @@ const MangeUser = () => {
                   )}
                 </td>
                 <td>
-                  {user.role === "agent" && <span>Agent</span>}
-                  {user.role === "agent" && (
-                    <button
-                      onClick={() => handleMarkFraud(user)}
-                      className="btn btn-sm bg-[#ED2027] text-white ml-2"
-                    >
-                      <FaLock className="text-xl" />
-                      Mark as Fraud
-                    </button>
-                  )}
-                  {user.role === "fraud" && <span>Fraud</span>}
-                  {user.role !== "agent" && user.role !== "fraud" && (
-                    <div>
+                  {user.role === "agent" && !user.fraud && (
+                    <>
+                      <span>Agent</span>
                       <button
-                        onClick={() => handleMakeAgent(user)}
-                        className="btn btn-sm bg-[#ED2027] text-white"
+                        onClick={() => handleMarkFraud(user)}
+                        className="btn btn-sm bg-[#ED2027] text-white ml-2"
                       >
-                        <FaUsers
-                          className="text-white 
-                                        text-2xl"
-                        ></FaUsers>
-                        Make Agent
+                        <FaLock className="text-xl" />
+                        Mark as Fraud
                       </button>
-                    </div>
+                    </>
+                  )}
+                  {user.fraud && <span>Fraud</span>}
+                  {user.role !== "agent" && !user.fraud && (
+                    <button
+                      onClick={() => handleMakeAgent(user)}
+                      className="btn btn-sm bg-[#ED2027] text-white"
+                    >
+                      <FaUsers className="text-white text-2xl" />
+                      Make Agent
+                    </button>
                   )}
                 </td>
 

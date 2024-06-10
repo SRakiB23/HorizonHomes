@@ -10,7 +10,8 @@ const useVerifiedProperties = () => {
     queryKey: ["verifiedProperties"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/properti`);
-      return res.data;
+      // Filter out properties marked as fraud
+      return res.data.filter((property) => property.fraud !== "fraud");
     },
   });
 

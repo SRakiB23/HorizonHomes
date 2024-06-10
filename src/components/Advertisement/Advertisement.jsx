@@ -20,12 +20,14 @@ function Advertisement() {
         </h2>
       </div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-y-10">
-        {properties.map((property) => (
-          <AdvertisementCard
-            key={property._id}
-            property={property}
-          ></AdvertisementCard>
-        ))}
+        {properties
+          .filter((property) => property.fraud !== "fraud")
+          .map((filteredProperty) => (
+            <AdvertisementCard
+              key={filteredProperty._id}
+              property={filteredProperty}
+            />
+          ))}
       </div>
     </div>
   );

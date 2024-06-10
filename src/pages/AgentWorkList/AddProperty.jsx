@@ -17,6 +17,15 @@ const AddItems = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
+    if (user?.fraud === "fraud") {
+      Swal.fire({
+        icon: "error",
+        title: "Access Denied",
+        text: "You have been marked as fraud and cannot add properties.",
+      });
+      return;
+    }
+
     console.log(data);
 
     // Validate and combine min_price and max_price
