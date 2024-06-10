@@ -15,7 +15,7 @@ const PropertyDetails = () => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:5000/properties/${id}`)
+      fetch(`https://horizon-homes-lilac.vercel.app/properties/${id}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -24,7 +24,7 @@ const PropertyDetails = () => {
         })
         .then((data) => {
           setPropertyDetails(data);
-          return fetch(`http://localhost:5000/reviews/${id}`);
+          return fetch(`https://horizon-homes-lilac.vercel.app/reviews/${id}`);
         })
         .then((response) => {
           if (!response.ok) {
@@ -59,7 +59,7 @@ const PropertyDetails = () => {
       review_time: reviewTime,
     };
     console.log(reviewData);
-    fetch("http://localhost:5000/reviews", {
+    fetch("https://horizon-homes-lilac.vercel.app/reviews", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +96,7 @@ const PropertyDetails = () => {
       user_name: user?.displayName,
       email: user?.email,
     };
-    fetch("http://localhost:5000/wishlist", {
+    fetch("https://horizon-homes-lilac.vercel.app/wishlist", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

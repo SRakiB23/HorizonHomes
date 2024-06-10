@@ -17,7 +17,7 @@ const submitReview = async (formData, wishlist, id) => {
   };
   console.log(reviewData);
 
-  fetch(`http://localhost:5000/wishlist/${id}`, {
+  fetch(`https://horizon-homes-lilac.vercel.app/wishlist/${id}`, {
     method: "PATCH",
     headers: {
       "content-type": "application/json",

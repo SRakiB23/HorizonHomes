@@ -47,7 +47,7 @@ function ExtraSectionOne() {
                 <CountUp
                   className="text-5xl font-bold"
                   end={86}
-                  duration={25}
+                  duration={20}
                 />
               </p>
               <p className="text-xl font-bold">SATISFIED CLIENTS</p>
@@ -57,20 +57,20 @@ function ExtraSectionOne() {
                 <CountUp
                   className="text-5xl font-bold"
                   end={111}
-                  duration={30}
+                  duration={20}
                 />
               </p>
               <p className="text-xl font-bold">AWARD RECIEVED</p>
             </div>
             <div className="flex items-center">
               <p className="pr-3 text-[#Ed2027] font-medium ">
-                <CountUp className="text-6xl" end={32} duration={25} />
+                <CountUp className="text-6xl" end={32} duration={15} />
               </p>
               <p className="text-xl font-bold">SUCCESSFUL TRANSACTIONS</p>
             </div>
             <div className="flex items-center">
               <p className="pr-3 text-[#Ed2027] font-medium flex ">
-                <CountUp className="text-6xl" end={100} duration={25} />{" "}
+                <CountUp className="text-6xl" end={100} duration={20} />{" "}
                 <span className="text-3xl font-bold">+</span>
               </p>
               <p className="text-xl font-bold">Weekly Traffic</p>
