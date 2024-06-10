@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import useWishListId from "../../hooks/useWishlistId";
 import getTodayDate from "../../hooks/useCalender";
@@ -11,6 +11,7 @@ function MakeOffer() {
   const [offeredAmount, setOfferedAmount] = useState("");
   const [buyingDate] = useState(getTodayDate());
 
+  const navigate = useNavigate();
   // Function to handle change in offered amount input
   const handleOfferedAmountChange = (e) => {
     setOfferedAmount(e.target.value);
@@ -20,19 +21,6 @@ function MakeOffer() {
   const handleSubmitOffer = async (e) => {
     e.preventDefault();
     const priceRange = wishlist?.price_range;
-
-    // if (
-    //   !priceRange ||
-    //   typeof priceRange.min !== "number" ||
-    //   typeof priceRange.max !== "number"
-    // ) {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Invalid Price Range",
-    //     text: "The price range is not valid.",
-    //   });
-    //   return;
-    // }
 
     const { min: minPrice, max: maxPrice } = priceRange;
 
@@ -59,6 +47,7 @@ function MakeOffer() {
         showConfirmButton: false,
         timer: 1500,
       });
+      navigate("/dashboard");
     } catch (error) {
       // Handle errors
       console.error(error);

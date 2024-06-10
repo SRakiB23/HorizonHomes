@@ -11,7 +11,12 @@ const useWishlistId = (id) => {
   } = useQuery({
     queryKey: ["wishlist"],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/wishlist/${id}`);
+      const token = localStorage.getItem("access-token");
+      const res = await axiosPublic.get(`/wishlist/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return res.data;
     },
   });

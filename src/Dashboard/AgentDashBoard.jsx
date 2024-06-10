@@ -1,28 +1,42 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useAgent from "../hooks/useAgent";
 import useGetUser from "../hooks/useGetUser";
 import Swal from "sweetalert2";
+import { AuthContext } from "../providers/AuthProvider";
 
 function AgentDashBoard() {
   const [users] = useGetUser();
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext); // Access logged-in user from AuthContext
 
-  // Check if any user is marked as fraud
-  const hasFraudulentUser = users.some((user) => user.fraud === "fraud");
+  useEffect(() => {
+    if (users && user) {
+      const isLoggedInUserFraudulent = users.some(
+        (userItem) =>
+          userItem.email === user.email && userItem.fraud === "fraud"
+      );
 
-  // Function to handle "Add Property" click
-  const handleAddPropertyClick = () => {
-    // If any user is marked as fraud, show SweetAlert
-    if (hasFraudulentUser) {
+      if (isLoggedInUserFraudulent) {
+        // Potentially use navigate to redirect if fraud is detected
+      } else {
+      }
+    }
+  }, [users, user]); // Dependencies for updates
+
+  const handleAddPropertyClick = (event) => {
+    const isLoggedInUserFraudulent = users.some(
+      (userItem) => userItem.email === user.email && userItem.fraud === "fraud"
+    );
+
+    if (isLoggedInUserFraudulent) {
+      event.preventDefault(); // Prevent navigation
       Swal.fire({
         icon: "error",
-        title: "You have been marked as fraud",
-        text: "You are not allowed to add properties.",
+        title: "Access Denied",
+        text: "You have been marked as fraud and cannot add properties.",
       });
-    }
-    // Otherwise, navigate to the "Add Property" page
-    else {
+    } else {
+      // Navigate to Add Property page
       navigate("/addproperty");
     }
   };
@@ -35,11 +49,11 @@ function AgentDashBoard() {
             <h3>Agent Profile</h3>
           </div>
         </Link>
-        <div onClick={handleAddPropertyClick}>
+        <Link to="/addproperty" onClick={handleAddPropertyClick}>
           <div className="bg-slate-100 shadow-xl p-5 rounded-xl border-4 border-b-[#ED2027]">
-            <h3>Add Property</h3>
+            <h3>Add Properties</h3>
           </div>
-        </div>
+        </Link>
         <Link to="/addedproperties">
           <div className="bg-slate-100 shadow-xl p-5 rounded-xl border-4 border-b-[#ED2027]">
             <h3>My Added Properties</h3>

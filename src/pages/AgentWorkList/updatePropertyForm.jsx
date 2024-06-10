@@ -10,13 +10,13 @@ import { useParams } from "react-router-dom";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-const UpdatePropertyForm = ({ item }) => {
+const UpdatePropertyForm = ({ property }) => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
   const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
-  const { property_name } = item;
+  const { property_name } = property;
   const onSubmit = async (data) => {
     console.log(data);
     // image upload to imgbb and then get an url
@@ -92,7 +92,7 @@ const UpdatePropertyForm = ({ item }) => {
             <input
               type="text"
               placeholder="Property Name"
-              defaultValue={item.property_name}
+              defaultValue={property.property_name}
               {...register("property_name", { required: true })}
               required
               className="input input-bordered w-full"
@@ -106,7 +106,7 @@ const UpdatePropertyForm = ({ item }) => {
               </label>
               <input
                 type="text"
-                defaultValue={item.location}
+                defaultValue={property.location}
                 placeholder="Location"
                 {...register("location", { required: true })}
                 required
@@ -122,7 +122,7 @@ const UpdatePropertyForm = ({ item }) => {
               <input
                 type="number"
                 placeholder="Min Price"
-                defaultValue={item.price_range?.min}
+                defaultValue={property.price_range?.min}
                 {...register("min_price", { required: true, min: 0 })}
                 className="input input-bordered w-full"
               />
@@ -133,7 +133,7 @@ const UpdatePropertyForm = ({ item }) => {
               </label>
               <input
                 type="number"
-                defaultValue={item.price_range?.max}
+                defaultValue={property.price_range?.max}
                 placeholder="Max Price"
                 {...register("max_price", { required: true, min: 0 })}
                 className="input input-bordered w-full"
